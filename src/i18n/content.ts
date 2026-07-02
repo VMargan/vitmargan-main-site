@@ -167,7 +167,7 @@ export const content: Record<Lang, SiteContent> = {
         'Les technologies que j’utilise au quotidien. Polyvalent par choix : je m’adapte à votre contexte plutôt que d’imposer une stack.',
       groups: [
         { label: 'Langages & Backend', items: ['C#', '.NET / ASP.NET Core', 'EF Core', 'Clean Architecture', 'DDD', 'CQRS / MediatR', 'RabbitMQ'] },
-        { label: 'Frontend', items: ['Angular', 'Signals', 'RxJS', 'NgRx', 'React / Next.js', 'TypeScript', 'Tailwind'] },
+        { label: 'Frontend', items: ['Angular', 'Signals', 'RxJS', 'NgRx', 'React / Next.js', 'Astro', 'TypeScript', 'Tailwind'] },
         { label: 'Cloud & DevOps', items: ['Azure', 'Docker', 'Kubernetes', 'Azure DevOps', 'GitHub Actions', 'Coolify', 'CI/CD'] },
         { label: 'Bases de données', items: ['SQL Server', 'Azure SQL', 'PostgreSQL', 'Oracle', 'MySQL'] },
         { label: 'Qualité & IA', items: ['Playwright', 'xUnit', 'Shift-left testing', 'Dév. assisté par IA', 'MCP'] },
@@ -436,7 +436,7 @@ export const content: Record<Lang, SiteContent> = {
         'The technologies I work with daily. Versatile by design: I adapt to your context rather than impose a stack.',
       groups: [
         { label: 'Languages & Backend', items: ['C#', '.NET / ASP.NET Core', 'EF Core', 'Clean Architecture', 'DDD', 'CQRS / MediatR', 'RabbitMQ'] },
-        { label: 'Frontend', items: ['Angular', 'Signals', 'RxJS', 'NgRx', 'React / Next.js', 'TypeScript', 'Tailwind'] },
+        { label: 'Frontend', items: ['Angular', 'Signals', 'RxJS', 'NgRx', 'React / Next.js', 'Astro', 'TypeScript', 'Tailwind'] },
         { label: 'Cloud & DevOps', items: ['Azure', 'Docker', 'Kubernetes', 'Azure DevOps', 'GitHub Actions', 'Coolify', 'CI/CD'] },
         { label: 'Databases', items: ['SQL Server', 'Azure SQL', 'PostgreSQL', 'Oracle', 'MySQL'] },
         { label: 'Quality & AI', items: ['Playwright', 'xUnit', 'Shift-left testing', 'AI-assisted dev', 'MCP'] },
