@@ -83,31 +83,12 @@ Automatisé via **semantic-release** + **Conventional Commits**. Voir
 [`docs/RELEASING.md`](docs/RELEASING.md). Politique : `0.0.1` en baseline, `1.0.0`
 réservé à la mise en production.
 
-## 🚀 Déploiement — GitHub Pages (Continuous Delivery)
+## 🚀 Déploiement
 
-Le site est **100% statique** → déployé **automatiquement sur GitHub Pages** à
-chaque push sur `main` (`.github/workflows/deploy.yml`).
+Site **100% statique**, déployé **automatiquement sur [GitHub Pages](https://vitmargan.be)**
+(via GitHub Actions) à chaque push sur `main`.
 
-**Setup GitHub (une seule fois) :**
-1. **Settings → Pages → Source : GitHub Actions**
-2. **Settings → Actions → General → Workflow permissions : Read and write** (pour `release.yml`)
-3. **Settings → Pages → Custom domain : `vitmargan.be`** (une fois le DNS live) + **Enforce HTTPS**
+**Pipeline** : PR → `ci.yml` (build) · `main` → `release.yml` (version + changelog +
+release GitHub) **et** `deploy.yml` (build + Pages).
 
-**DNS** (chez ton registrar `.be`) pour l'apex `vitmargan.be` :
-
-| Type  | Nom   | Valeur              |
-| :---- | :---- | :------------------ |
-| A     | `@`   | `185.199.108.153`   |
-| A     | `@`   | `185.199.109.153`   |
-| A     | `@`   | `185.199.110.153`   |
-| A     | `@`   | `185.199.111.153`   |
-| CNAME | `www` | `vmargan.github.io.` |
-
-Le fichier `public/CNAME` (→ `vitmargan.be`) est inclus au build.
-
-**Pipeline complet :** PR → `ci.yml` (build) · merge `main` → `release.yml`
-(version + changelog + release GitHub) **et** `deploy.yml` (build + déploiement Pages).
-
-> _Alternative :_ le `Dockerfile` (nginx) reste dispo si tu veux héberger sur
-> **Coolify**. On garde de toute façon Coolify pour les services dynamiques
-> (Cal.com, Umami) sur des sous-domaines (`cal.` / `analytics.vitmargan.be`).
+_Un `Dockerfile` (nginx) est également fourni comme alternative d'hébergement (ex. Coolify)._
