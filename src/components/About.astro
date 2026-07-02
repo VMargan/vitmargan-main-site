@@ -1,0 +1,60 @@
+---
+import { content, type Lang } from '../i18n/content';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const a = content[lang].about;
+const alt = lang === 'fr'
+  ? 'Vincent Margan, ingénieur logiciel freelance'
+  : 'Vincent Margan, freelance software engineer';
+const caption = lang === 'fr' ? 'Freelance · Belgique' : 'Freelance · Belgium';
+---
+
+<section id="about" class="relative border-t border-line/50 py-24 md:py-32">
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-[300px_1fr] lg:gap-16">
+      <!-- Portrait -->
+      <div data-reveal class="mx-auto w-full max-w-[280px] lg:mx-0">
+        <div class="relative">
+          <div class="glow-accent pointer-events-none absolute -inset-6 opacity-70" aria-hidden="true"></div>
+          <img
+            src="/vincent_margan.jpg"
+            width="348"
+            height="502"
+            alt={alt}
+            loading="lazy"
+            class="relative w-full rounded-2xl border border-line object-cover shadow-2xl shadow-black/50"
+          />
+          <div class="absolute -bottom-3 -right-3 h-14 w-14 rounded-br-2xl border-b-2 border-r-2 border-accent/70" aria-hidden="true"></div>
+        </div>
+        <div class="mt-6">
+          <p class="font-display text-lg text-fg">Vincent Margan</p>
+          <p class="font-mono text-xs text-accent">{caption}</p>
+        </div>
+      </div>
+
+      <!-- Bio + principes -->
+      <div>
+        <SectionHeading index={a.index} kicker={a.kicker} title={a.title} />
+        <div class="space-y-5">
+          {a.paragraphs.map((p, idx) => (
+            <p data-reveal style={`--i:${idx}`} class="text-lg leading-relaxed text-fg-dim">{p}</p>
+          ))}
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+          {a.principles.map((pr, idx) => (
+            <div data-reveal style={`--i:${idx}`} class="bg-ink p-7">
+              <div class="mb-4 flex h-9 w-9 items-center justify-center rounded-md border border-accent/30 bg-accent/10 font-mono text-sm text-accent">
+                {String(idx + 1).padStart(2, '0')}
+              </div>
+              <h3 class="text-base font-semibold text-fg">{pr.title}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-muted">{pr.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

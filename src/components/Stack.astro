@@ -1,0 +1,32 @@
+---
+import { content, type Lang } from '../i18n/content';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const s = content[lang].stack;
+---
+
+<section id="stack" class="relative border-t border-line/50 py-24 md:py-32">
+  <div class="mx-auto max-w-6xl px-6">
+    <SectionHeading index={s.index} kicker={s.kicker} title={s.title} intro={s.intro} />
+
+    <div class="divide-y divide-line rounded-lg border border-line">
+      {s.groups.map((group, idx) => (
+        <div data-reveal style={`--i:${idx}`} class="grid grid-cols-1 gap-4 p-6 sm:grid-cols-[180px_1fr] sm:gap-8 sm:p-7">
+          <div class="flex items-center gap-3">
+            <span class="font-mono text-xs text-accent">{String(idx + 1).padStart(2, '0')}</span>
+            <h3 class="font-mono text-sm uppercase tracking-widest text-fg-dim">{group.label}</h3>
+          </div>
+          <ul class="flex flex-wrap gap-2.5">
+            {group.items.map((item) => (
+              <li class="rounded-md border border-line bg-surface px-3.5 py-1.5 text-sm text-fg transition-colors hover:border-accent/50 hover:text-accent">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,89 @@
+---
+import { content, missionProjects, type Lang } from '../i18n/content';
+import SectionHeading from './SectionHeading.astro';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const m = content[lang].missions;
+const projectsLabel = lang === 'fr' ? 'Voir les réalisations' : 'View projects';
+const items = m.items.map((mission) => ({
+  ...mission,
+  projects: missionProjects[lang][mission.client] ?? [],
+}));
+---
+
+<section id="missions" class="relative border-t border-line/50 py-24 md:py-32">
+  <div class="mx-auto max-w-6xl px-6">
+    <SectionHeading index={m.index} kicker={m.kicker} title={m.title} intro={m.intro} />
+
+    <div class="relative">
+      <!-- timeline rail -->
+      <div class="absolute left-0 top-2 bottom-2 hidden w-px bg-line md:block sm:left-[7px]" aria-hidden="true"></div>
+
+      <ol class="space-y-6">
+        {items.map((mission, idx) => (
+          <li data-reveal style={`--i:${idx}`} class="relative md:pl-10">
+            <span class:list={[
+              'absolute left-0 top-8 hidden h-3.5 w-3.5 -translate-x-[6px] rounded-full border-2 md:block',
+              mission.current ? 'border-accent bg-accent' : 'border-line bg-ink',
+            ]}></span>
+
+            <article class="card rounded-lg border border-line bg-surface/40 p-7">
+              <div class="flex flex-wrap items-start justify-between gap-x-6 gap-y-2">
+                <div>
+                  <h3 class="text-xl font-semibold text-fg">{mission.client}</h3>
+                  <p class="mt-0.5 text-sm text-fg-dim">{mission.role}</p>
+                </div>
+                <div class="flex items-center gap-3">
+                  {mission.current && (
+                    <span class="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-2.5 py-1 font-mono text-[11px] text-accent">
+                      <span class="h-1.5 w-1.5 rounded-full bg-accent"></span>{m.current}
+                    </span>
+                  )}
+                  <span class="font-mono text-xs text-muted">{mission.period}</span>
+                </div>
+              </div>
+
+              <p class="mt-4 text-[15px] leading-relaxed text-muted">{mission.summary}</p>
+
+              <ul class="mt-4 space-y-2">
+                {mission.highlights.map((hl) => (
+                  <li class="flex gap-3 text-sm text-fg-dim">
+                    <span class="mt-2 h-1 w-1 flex-none rounded-full bg-accent"></span>
+                    <span>{hl}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <ul class="mt-5 flex flex-wrap gap-2">
+                {mission.stack.map((tag) => (
+                  <li class="rounded border border-line bg-ink px-2.5 py-1 font-mono text-xs text-muted">{tag}</li>
+                ))}
+              </ul>
+
+              {mission.projects.length > 0 && (
+                <details class="group mt-5 border-t border-line/60 pt-4">
+                  <summary class="flex cursor-pointer list-none items-center gap-2 font-mono text-xs text-fg-dim transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="transition-transform duration-300 group-open:rotate-90" aria-hidden="true">
+                      <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    {projectsLabel}
+                    <span class="text-muted">({mission.projects.length})</span>
+                  </summary>
+                  <ul class="mt-4 grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
+                    {mission.projects.map((proj) => (
+                      <li class="flex gap-2.5 text-[13px] leading-relaxed text-fg-dim">
+                        <span class="mt-1.5 h-1 w-1 flex-none rounded-full bg-accent/70"></span>
+                        <span>{proj}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
+              )}
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

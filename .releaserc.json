@@ -1,0 +1,77 @@
+{
+  "branches": ["main"],
+  "tagFormat": "v${version}",
+  "plugins": [
+    [
+      "@semantic-release/commit-analyzer",
+      {
+        "preset": "conventionalcommits",
+        "releaseRules": [
+          { "type": "refactor", "release": "patch" },
+          { "type": "docs", "scope": "site", "release": "patch" },
+          { "type": "style", "release": false },
+          { "type": "chore", "release": false },
+          { "type": "test", "release": false },
+          { "type": "ci", "release": false }
+        ]
+      }
+    ],
+    [
+      "@semantic-release/release-notes-generator",
+      {
+        "preset": "conventionalcommits",
+        "presetConfig": {
+          "types": [
+            { "type": "feat", "section": "✨ Nouvelles fonctionnalités" },
+            { "type": "fix", "section": "🐛 Corrections" },
+            { "type": "perf", "section": "⚡ Performances" },
+            { "type": "refactor", "section": "♻️ Refactoring" },
+            { "type": "docs", "section": "📝 Documentation" },
+            { "type": "build", "section": "📦 Build & dépendances" },
+            { "type": "style", "hidden": true },
+            { "type": "test", "hidden": true },
+            { "type": "ci", "hidden": true },
+            { "type": "chore", "hidden": true }
+          ]
+        }
+      }
+    ],
+    [
+      "@semantic-release/changelog",
+      {
+        "changelogFile": "CHANGELOG.md",
+        "changelogTitle": "# Changelog technique\n\nToutes les évolutions notables de ce projet sont générées automatiquement à partir des [Conventional Commits](https://www.conventionalcommits.org). Pour les nouveautés côté visiteur, voir la page /changelog du site."
+      }
+    ],
+    [
+      "@semantic-release/exec",
+      {
+        "prepareCmd": "node scripts/new-public-changelog-entry.mjs \"${nextRelease.version}\" \"${nextRelease.type}\""
+      }
+    ],
+    [
+      "@semantic-release/npm",
+      { "npmPublish": false }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": [
+          "CHANGELOG.md",
+          "package.json",
+          "package-lock.json",
+          "src/content/changelog/*.md"
+        ],
+        "message": "chore(release): v${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    [
+      "@semantic-release/github",
+      {
+        "successComment": false,
+        "failTitle": false,
+        "releasedLabels": false
+      }
+    ]
+  ]
+}
