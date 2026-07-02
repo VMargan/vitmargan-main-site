@@ -1,0 +1,64 @@
+# ──────────────────────────────────────────────────────────────────────────
+# CD — PLACEHOLDER (deployment target not decided yet: GitHub Pages vs Coolify).
+#
+# ▸ Option A — GitHub Pages (this workflow): static, free, zero-maintenance,
+#   GitHub CDN + automatic HTTPS. The site is 100% static, so it fits perfectly.
+#     1. Repo → Settings → Pages → Build and deployment → Source: "GitHub Actions".
+#     2. Add a file `public/CNAME` containing:  vitmargan.be
+#     3. DNS: apex A records → GitHub Pages IPs (185.199.108/109/110/111 . 153),
+#        (optionally CNAME `www` → VMargan.github.io). Then "Enforce HTTPS".
+#     4. Change the trigger below to:  push: { branches: [main] }
+#
+# ▸ Option B — Coolify (self-hosted): NO workflow needed — Coolify builds the
+#   Dockerfile and redeploys on each push to main via its own webhook. Keep this
+#   file disabled (workflow_dispatch only) in that case.
+# ──────────────────────────────────────────────────────────────────────────
+name: Deploy (placeholder)
+
+on:
+  workflow_dispatch: {} # manual trigger only, until the CD target is chosen
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+        env:
+          HUSKY: '0'
+
+      - name: Build
+        run: npm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4
