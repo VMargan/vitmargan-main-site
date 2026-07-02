@@ -17,6 +17,6 @@ export const siteConfig = {
   calBrandColor: '#5b9dfb',
 
   // Umami analytics (privacy-first, self-hostable on Coolify). Fill BOTH to enable.
-  umamiSrc: '', // e.g. 'https://analytics.vitmargan.be/script.js'
-  umamiWebsiteId: '', // website UUID from the Umami dashboard
+  umamiSrc: 'https://analytics.vitmargan.be/script.js',
+  umamiWebsiteId: '1082dcc9-2335-455e-99cd-8f6aa677d45f', // website UUID from the Umami dashboard
 } as const;
