@@ -1,34 +1,37 @@
-# ──────────────────────────────────────────────────────────────────────────
-# CD — PLACEHOLDER (deployment target not decided yet: GitHub Pages vs Coolify).
+# GitHub Pages — continuous delivery for the static site.
 #
-# ▸ Option A — GitHub Pages (this workflow): static, free, zero-maintenance,
-#   GitHub CDN + automatic HTTPS. The site is 100% static, so it fits perfectly.
-#     1. Repo → Settings → Pages → Build and deployment → Source: "GitHub Actions".
-#     2. Add a file `public/CNAME` containing:  vitmargan.be
-#     3. DNS: apex A records → GitHub Pages IPs (185.199.108/109/110/111 . 153),
-#        (optionally CNAME `www` → VMargan.github.io). Then "Enforce HTTPS".
-#     4. Change the trigger below to:  push: { branches: [main] }
+# One-time repo setup (Settings):
+#   • Pages → Build and deployment → Source: "GitHub Actions"
+#   • Actions → General → Workflow permissions: "Read and write"  (for release.yml)
+#   • Pages → Custom domain: vitmargan.be  (once DNS is live) + "Enforce HTTPS"
 #
-# ▸ Option B — Coolify (self-hosted): NO workflow needed — Coolify builds the
-#   Dockerfile and redeploys on each push to main via its own webhook. Keep this
-#   file disabled (workflow_dispatch only) in that case.
-# ──────────────────────────────────────────────────────────────────────────
-name: Deploy (placeholder)
+# DNS for the apex vitmargan.be → GitHub Pages (at your .be registrar):
+#   A      @     185.199.108.153
+#   A      @     185.199.109.153
+#   A      @     185.199.110.153
+#   A      @     185.199.111.153
+#   CNAME  www   vmargan.github.io.
+name: Deploy
 
 on:
-  workflow_dispatch: {} # manual trigger only, until the CD target is chosen
+  push:
+    branches: [main]
+  workflow_dispatch: {}
 
 permissions:
   contents: read
   pages: write
   id-token: write
 
+# Never run two Pages deployments at once
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
   deploy:
+    # Skip the release bot's own version-bump commit
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     environment:
       name: github-pages

@@ -1,7 +1,7 @@
 # vitmargan.be — Site vitrine
 
 Site vitrine one-page de **Vincent Margan**, freelance IT ([Vitmargan SRL](https://vitmargan.be)).
-Construit avec **Astro** + **Tailwind CSS v4**, bilingue **FR / EN**, thème sombre.
+Construit avec **Astro** + **Tailwind CSS v4**, bilingue **FR / EN**, thème **nuit étoilée** (bleu).
 
 ## 🏗️ Architecture & flux
 
@@ -17,9 +17,8 @@ flowchart LR
   CFG --> A
   CL --> A
   A -->|"npm run build"| D["dist/ (statique)"]
-  D -->|"Dockerfile · nginx"| IMG[("Image Docker")]
-  IMG -->|"push main"| CO["Coolify"]
-  CO --> WWW[["vitmargan.be"]]
+  D -->|"GitHub Actions · deploy.yml"| GP["GitHub Pages"]
+  GP -->|"CNAME + DNS"| WWW[["vitmargan.be"]]
 
   subgraph Release["Release automatique (CI)"]
     GIT["Commits conventionnels"] --> SR["semantic-release"]
@@ -72,16 +71,43 @@ Dans `src/config.ts`, renseigner `calLink` (ex. `vincent-margan/30min`) et
 éventuellement `calOrigin`. Tant que `calLink` est vide, les boutons basculent
 proprement sur un `mailto:`.
 
+## 📊 Analytics (Umami)
+
+Privacy-first, **sans cookies** (pas de bandeau RGPD). Renseigner `umamiSrc` +
+`umamiWebsiteId` dans `src/config.ts` — le script ne se charge que si les deux
+sont remplis. Instance **Umami auto-hébergée sur Coolify**.
+
 ## 🔖 Versioning & changelog
 
 Automatisé via **semantic-release** + **Conventional Commits**. Voir
 [`docs/RELEASING.md`](docs/RELEASING.md). Politique : `0.0.1` en baseline, `1.0.0`
 réservé à la mise en production.
 
-## 🚀 Déploiement (Coolify)
+## 🚀 Déploiement — GitHub Pages (Continuous Delivery)
 
-`Dockerfile` multi-stage (build Astro → service nginx).
+Le site est **100% statique** → déployé **automatiquement sur GitHub Pages** à
+chaque push sur `main` (`.github/workflows/deploy.yml`).
 
-1. Coolify : **New Resource → Application → Dockerfile** (repo `VMargan/vitmargan-main-site`).
-2. Port exposé : **80**. Domaine : `vitmargan.be` (HTTPS auto via Let's Encrypt).
-3. Déploiement auto à chaque push sur `main`.
+**Setup GitHub (une seule fois) :**
+1. **Settings → Pages → Source : GitHub Actions**
+2. **Settings → Actions → General → Workflow permissions : Read and write** (pour `release.yml`)
+3. **Settings → Pages → Custom domain : `vitmargan.be`** (une fois le DNS live) + **Enforce HTTPS**
+
+**DNS** (chez ton registrar `.be`) pour l'apex `vitmargan.be` :
+
+| Type  | Nom   | Valeur              |
+| :---- | :---- | :------------------ |
+| A     | `@`   | `185.199.108.153`   |
+| A     | `@`   | `185.199.109.153`   |
+| A     | `@`   | `185.199.110.153`   |
+| A     | `@`   | `185.199.111.153`   |
+| CNAME | `www` | `vmargan.github.io.` |
+
+Le fichier `public/CNAME` (→ `vitmargan.be`) est inclus au build.
+
+**Pipeline complet :** PR → `ci.yml` (build) · merge `main` → `release.yml`
+(version + changelog + release GitHub) **et** `deploy.yml` (build + déploiement Pages).
+
+> _Alternative :_ le `Dockerfile` (nginx) reste dispo si tu veux héberger sur
+> **Coolify**. On garde de toute façon Coolify pour les services dynamiques
+> (Cal.com, Umami) sur des sous-domaines (`cal.` / `analytics.vitmargan.be`).
