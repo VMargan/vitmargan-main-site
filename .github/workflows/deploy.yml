@@ -66,4 +66,4 @@ jobs:
         id: deploy
         uses: actions/deploy-pages@v5
         with:
-          timeout: 1800000 # 30 min — resilient to GitHub Pages slow/queued deployments
+          timeout: 600000 # 10 min (deploy-pages action maximum)
