@@ -8,9 +8,9 @@ export default defineConfig({
   site: 'https://vitmargan.be',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr'],
+    locales: ['en', 'fr', 'nl'],
     routing: {
-      prefixDefaultLocale: false, // EN = "/", FR = "/fr"
+      prefixDefaultLocale: false, // EN = "/", FR = "/fr", NL = "/nl"
     },
   },
   vite: {

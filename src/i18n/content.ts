@@ -9,7 +9,7 @@
  * client, and keep the mcp-ado-browser wording neutral (tooling, not "bypass").
  */
 
-export const languages = { fr: 'Français', en: 'English' } as const;
+export const languages = { fr: 'Français', en: 'English', nl: 'Nederlands' } as const;
 export type Lang = keyof typeof languages;
 export const defaultLang: Lang = 'en';
 
@@ -624,6 +624,275 @@ export const content: Record<Lang, SiteContent> = {
       kinds: { feature: 'New', improvement: 'Improvement', fix: 'Fix' },
     },
   },
+
+  nl: {
+    meta: {
+      title: 'Vincent Margan — Freelance IT · Softwareontwikkelaar .NET / Angular',
+      description:
+        'Freelance IT in België, 10+ jaar ervaring. Full-stack .NET / Angular-ontwikkelaar, Azure-cloud, DevOps & technisch leiderschap. Van concept tot productie.',
+    },
+    nav: [
+      { href: '#services', label: 'Diensten' },
+      { href: '#stack', label: 'Expertise' },
+      { href: '#missions', label: 'Opdrachten' },
+      { href: '#projects', label: 'Projecten' },
+      { href: '#about', label: 'Over mij' },
+      { href: '#contact', label: 'Contact' },
+    ],
+    langSwitchLabel: 'EN',
+    hero: {
+      eyebrow: 'Freelance IT · België · Beschikbaar',
+      name: 'Vincent Margan',
+      roles: ['Software engineer', '.NET Tech Lead', 'Full-stack developer', 'Solution architect'],
+      title: 'Ik ontwerp en bouw solide softwareproducten, van concept tot productie.',
+      lead:
+        'Als freelancer met meer dan tien jaar ervaring dek ik de volledige technische keten — full-stack .NET / Angular, Azure-cloud, DevOps en architectuur — in veeleisende omgevingen, van de publieke sector tot fintech.',
+      available: 'Beschikbaar voor nieuwe opdrachten',
+      ctaPrimary: 'Plan een gesprek',
+      ctaSecondary: 'Bekijk mijn expertise',
+      terminalTitle: 'vincent@vitmargan',
+      terminal: [
+        '$ whoami',
+        'Vincent Margan — software engineer · freelance',
+        '$ cat stack.txt',
+        '.NET · C# · Angular · Azure · DevOps · AI',
+        '$ ./status --availability',
+        '→ klaar om uw volgende product te bouwen',
+      ],
+    },
+    services: {
+      index: '01',
+      kicker: 'Wat ik doe',
+      title: 'Van scoping tot productie, zonder blinde vlekken.',
+      intro:
+        'Een brede skillset waarmee ik een project van begin tot eind kan dragen, of een team kan versterken op een specifiek punt — code, cloud, kwaliteit of architectuur.',
+      items: [
+        {
+          num: '01',
+          title: 'Full-stack ontwikkeling',
+          desc:
+            'Performante, onderhoudbare webapplicaties in .NET / C# en Angular — van de UI tot de API en de database. Clean Architecture, DDD, CQRS.',
+          tags: ['.NET', 'Angular', 'C#', 'TypeScript'],
+        },
+        {
+          num: '02',
+          title: 'DevOps, cloud & CI/CD',
+          desc:
+            'Azure-cloudinfrastructuur, containerisatie en volledig geautomatiseerde deployment-pipelines — om snel, vaak en met vertrouwen te leveren.',
+          tags: ['Azure', 'Docker', 'Kubernetes', 'CI/CD'],
+        },
+        {
+          num: '03',
+          title: 'Architectuur & technisch leiderschap',
+          desc:
+            'Applicatie- en integratiearchitectuur, het bepalen van standaarden, het coachen van ontwikkelaars en de rol van aanspreekpunt tussen teams.',
+          tags: ['Architectuur', 'Tech lead', 'Coaching', 'Standaarden'],
+        },
+        {
+          num: '04',
+          title: 'Kwaliteit & geautomatiseerde tests',
+          desc:
+            'Een DevOps- en shift-left-testcultuur: geautomatiseerde tests (unit, e2e met Playwright), gating en non-regressie ingebouwd in de pipeline.',
+          tags: ['Playwright', 'E2E-tests', 'xUnit', 'Shift-left'],
+        },
+      ],
+    },
+    stack: {
+      index: '02',
+      kicker: 'Mijn gereedschapskist',
+      title: 'Brede en actuele technische expertise.',
+      intro:
+        'De technologieën die ik dagelijks gebruik. Veelzijdig uit overtuiging: ik pas me aan uw context aan in plaats van een stack op te leggen.',
+      groups: [
+        { label: 'Talen & Backend', items: ['C#', '.NET / ASP.NET Core', 'EF Core', 'Clean Architecture', 'DDD', 'CQRS / MediatR', 'RabbitMQ'] },
+        { label: 'Frontend', items: ['Angular', 'Signals', 'RxJS', 'NgRx', 'React / Next.js', 'Astro', 'TypeScript', 'Tailwind'] },
+        { label: 'Cloud & DevOps', items: ['Azure', 'Docker', 'Kubernetes', 'Azure DevOps', 'GitHub Actions', 'Coolify', 'CI/CD'] },
+        { label: 'Databases', items: ['SQL Server', 'Azure SQL', 'PostgreSQL', 'Oracle', 'MySQL'] },
+        { label: 'Kwaliteit & AI', items: ['Playwright', 'xUnit', 'Shift-left testing', 'AI-ondersteunde ontwikkeling', 'MCP'] },
+      ],
+    },
+    missions: {
+      index: '03',
+      kicker: 'Traject',
+      title: 'Concrete opdrachten, veeleisende contexten.',
+      intro:
+        'Meer dan tien jaar ervaring, van full-stack ontwikkeling tot technisch leiderschap — publieke sector, fintech, industrie, farma.',
+      current: 'Lopend',
+      items: [
+        {
+          client: 'UCB',
+          role: 'Software Developer',
+          period: '2026 — heden',
+          current: true,
+          summary:
+            'Full-stack developer aan een intern platform voor risicobeoordeling en het beheer van protocollen van klinische studies, in een gereguleerde farmaceutische omgeving (GxP).',
+          highlights: [
+            'Ontwikkeling van businessmodules op een intern SaaS-platform dat op Azure draait.',
+            'Angular 21-front (signals, standalone componenten) en .NET 9-back in Clean Architecture.',
+            'Integratie van Azure-diensten: Cognitive Search, Service Bus, Key Vault, generatie van documenten.',
+          ],
+          stack: ['Angular 21', '.NET 9', 'Azure', 'EF Core', 'TypeScript'],
+        },
+        {
+          client: 'Pluxee (Sodexo)',
+          role: '.NET Tech Lead / Chapter Lead',
+          period: '2023 — 2026',
+          summary:
+            'Tech lead op de applicatie-“galaxy” rond dienstencheques en vouchers (publieke sector & fintech): BFF’s, API’s en integraties met een hoog volume.',
+          highlights: [
+            'Ontwerp en volledige ontwikkeling from scratch van de nieuwe Worker API, ter vervanging van een legacysysteem.',
+            'Sleutelfiguur in de carve-out Sodexo → Pluxee: multi-tenant migratie naar Azure en datacenter, CI/CD-pipelines, authenticatie (IdentityServer).',
+            'Technische coaching van 7 ontwikkelaars, het bepalen van standaarden en integratiearchitectuurdiagrammen.',
+            'Aanjager van een DevOps- en geautomatiseerde-testcultuur (shift-left, e2e met Playwright).',
+          ],
+          stack: ['.NET', 'ASP.NET Core', 'Oracle', 'IdentityServer', 'Azure', 'Playwright'],
+        },
+        {
+          client: 'FOD Buitenlandse Zaken',
+          role: 'Solution Architect',
+          period: '2022 — 2023',
+          summary:
+            'Solution architect voor de nieuwe Visum- & Paspoortapplicaties, centraal aanspreekpunt tussen de teams Dev, Infra, Netwerk en Security.',
+          highlights: [
+            'Ontwerp van de modules “signalpersonen”, biometrie en visumondertekening via HSM.',
+            'Veilige .NET Core / Angular-applicaties, sleutels beschermd door Azure Key Vault (HSM).',
+          ],
+          stack: ['.NET Core', 'Angular', 'Azure', 'Key Vault (HSM)', 'Azure DevOps'],
+        },
+        {
+          client: 'Winamp',
+          role: 'Technical Leader',
+          period: '2021 — 2022',
+          summary:
+            'Tech lead van een team van 4 ontwikkelaars voor de heropstart van de legendarische Winamp-speler, in een microservicesarchitectuur.',
+          highlights: [
+            'Nieuwe backend voor het Winamp-ecosysteem in microservices.',
+            'Asynchrone messaging (MassTransit / RabbitMQ) en deployment op Kubernetes (AKS).',
+          ],
+          stack: ['.NET Core', 'MassTransit', 'RabbitMQ', 'PostgreSQL', 'Angular', 'AKS'],
+        },
+        {
+          client: 'RingRing',
+          role: 'Senior Software Engineer',
+          period: '2020 — 2021',
+          summary:
+            'Senior developer in het productteam, over de hele keten — van de Angular-front tot de .NET-back in microservices.',
+          highlights: [
+            'Nieuw portaal voor productbeheer, back-office en Angular-designsysteem.',
+            'Microservicesarchitectuur (IdentityServer, RabbitMQ).',
+          ],
+          stack: ['Angular', '.NET Core', 'IdentityServer', 'RabbitMQ', 'MySQL'],
+        },
+        {
+          client: 'Pulsar Consulting',
+          role: 'Full-Stack Developer / Tech Lead',
+          period: '2015 — 2020',
+          summary:
+            'Full-stack developer en tech lead op talrijke industriële projecten (het eLisa-platform voor Total, ArcelorMittal, Yara… door heel Europa), en lid van het IT-Infra-team.',
+          highlights: [
+            'Websites voor afspraken, registratiekiosken, weeginterfaces en back-offices.',
+            'Beheer van de interne infrastructuur (Active Directory, TFS, Office 365, Exchange, SharePoint).',
+          ],
+          stack: ['Angular', '.NET', 'WCF', 'SQL Server', 'Oracle'],
+        },
+      ],
+    },
+    projects: {
+      index: '04',
+      kicker: 'Naast het opdrachtwerk',
+      title: 'Projecten die ik van A tot Z realiseer.',
+      intro:
+        'Als ik iets verken, lever ik ook echt op — vaak met splinternieuwe technologieën, in AI-ondersteunde ontwikkeling, van de code tot de infrastructuur.',
+      link: 'Bekijk project',
+      items: [
+        {
+          name: 'Ruimtelijke AR-desktop (XREAL)',
+          tag: 'R&D · Augmented reality',
+          period: 'Lopend',
+          summary:
+            'Een ruimtelijke augmented-reality-desktop voor XREAL One Pro-brillen op een niet-geroote Android-telefoon — een SteamVR-achtige omgeving met zwevende 360°-webvensters, een dock en head tracking.',
+          highlights: [
+            'Reverse engineering van de propriëtaire SDK (native binaries, ARM64-disassembly) om de bril buiten zijn officiële runtime aan te sturen, binnen een wettelijk interoperabiliteitskader.',
+            '3DoF head tracking heropgebouwd uit de ruwe IMU-API in native C++ (NDK/JNI): AHRS-complementair filter, anti-drift magnetometerfusie, One Euro filter.',
+            'Eigen stereoscopische 3D-rendering engine (pinhole-projectie, interoculaire dispariteit) en een stereo (SBS) display driver.',
+          ],
+          stack: ['Android / Kotlin', 'C++ (NDK/JNI)', 'Reverse engineering', 'IMU / signaal', '3D-rendering'],
+        },
+        {
+          name: 'Mirage’s',
+          tag: 'Vrijwilligerswerk · Community',
+          period: 'Lopend',
+          summary:
+            'Een full-stack ecosysteem voor een Discord-gamingcommunity: een publieke website en een back-office om events en leden te beheren.',
+          highlights: [
+            'Communitywebsite in Next.js 16 / React 19 (Prisma, PostgreSQL, Auth0 via Discord, zelf-gehoste S3-opslag).',
+            'ASP.NET Core 9-back-office (Clean Architecture, CQRS) met een Angular 21-front en realtime Discord-bots.',
+            'Volledige CI/CD met GitHub Actions: automatische versionering, Docker-images, continue deployment naar Coolify, observability.',
+          ],
+          stack: ['Next.js 16', '.NET 9', 'Angular 21', 'PostgreSQL', 'Coolify', 'GitHub Actions'],
+        },
+        {
+          name: 'mcp-ado-browser',
+          tag: 'Open source · MCP',
+          period: '2026',
+          summary:
+            'Een MCP-server (stdio) die een AI-assistent read-only toegang geeft tot Azure DevOps via de bestaande browsersessie — een pragmatische optimalisatie wanneer de klassieke MCP’s (Azure CLI, officiële ADO MCP) niet praktisch inzetbaar zijn.',
+          highlights: [
+            'Werkt zonder personal access token (PAT) of CLI — handig wanneer standaardintegraties niet volstaan.',
+            'Bereikt work items, repositories en artifacts via Playwright en een geïsoleerd browserprofiel.',
+          ],
+          stack: ['TypeScript', 'MCP', 'Playwright', 'Node.js'],
+          href: 'https://github.com/VMargan/mcp-ado-browser',
+        },
+      ],
+    },
+    about: {
+      index: '05',
+      kicker: 'Over mij',
+      title: 'Een technische partner, niet zomaar een extra paar handen.',
+      paragraphs: [
+        'Ik ben Vincent Margan, freelance software engineer gevestigd in België, met meer dan tien jaar ervaring in veeleisende omgevingen — van de publieke sector tot fintech, industrie en farma. Als full-stack .NET / Angular-ontwikkelaar werk ik evengoed aan de code als aan de architectuur, de cloud en de deployment-pipelines.',
+        'Doorheen mijn opdrachten heb ik rollen opgenomen als tech lead, solution architect en technisch coach. Ik begrijp graag het “waarom” vóór het “hoe”: goede software is niet zomaar code die werkt, het is een helder antwoord op een echte behoefte, netjes opgeleverd en gebouwd om te blijven.',
+        'Ik hoor ook bij wie AI-ondersteunde ontwikkeling ten volle omarmt — agentic workflows, MCP, werken op een hoger abstractieniveau — om sneller te leveren zonder in te boeten op kwaliteit, in een ecosysteem dat ik op de voet volg.',
+      ],
+      principles: [
+        { title: 'Duurzame kwaliteit', desc: 'Leesbare, geteste en gedocumenteerde code die uw team pijnloos kan overnemen.' },
+        { title: 'Automatisatie eerst', desc: 'CI/CD, geautomatiseerde tests en shift-left: snel, vaak en met vertrouwen leveren.' },
+        { title: 'Heldere communicatie', desc: 'Regelmatige check-ins, uitgelegde beslissingen, geen tunneleffect.' },
+        { title: 'Altijd blijven leren', desc: 'AI, nieuwe tools, continue bijscholing om u de juiste hefboom te bieden.' },
+      ],
+    },
+    contact: {
+      index: '06',
+      kicker: 'Contact',
+      title: 'Laten we samenwerken.',
+      intro:
+        'Een project, een opdracht of gewoon een vraag? Het eenvoudigst: plan meteen een moment in voor een eerste gesprek.',
+      bookingTitle: 'Plan een gesprek',
+      bookingDesc: 'Kies een moment dat u past — 30 minuten om uw behoefte te bespreken.',
+      bookingCta: 'Bekijk mijn beschikbaarheid',
+      orEmail: 'Of via e-mail',
+      email: 'vincent@vitmargan.be',
+      socials: [
+        { label: 'LinkedIn', href: 'https://www.linkedin.com/in/vincent-margan/', handle: 'in/vincent-margan' },
+        { label: 'GitHub', href: 'https://github.com/VMargan', handle: '@VMargan' },
+      ],
+    },
+    footer: {
+      tagline: 'Freelance software engineer — beschikbaar voor uw projecten.',
+      rights: 'Alle rechten voorbehouden.',
+      madeWith: 'Ontworpen & gebouwd met Astro',
+      backToTop: 'Naar boven',
+      changelog: 'Changelog',
+      legal: 'Vitmargan SRL · BTW BE 0804.761.983 · Grimbergen',
+    },
+    changelog: {
+      title: 'Changelog',
+      intro: 'Hoe deze site evolueert, versie na versie.',
+      back: 'Terug naar de site',
+      kinds: { feature: 'Nieuw', improvement: 'Verbetering', fix: 'Correctie' },
+    },
+  },
 };
 
 /**
@@ -700,6 +969,41 @@ export const missionProjects: Record<Lang, Record<string, string[]>> = {
       'eLisa platform for industrial sites: Total, ArcelorMittal, Yara (appointment booking, truck-call, registration and weighing kiosks, back-offices).',
       'Multi-country deployments (FR, DE, IT, BE) across ~a dozen sites.',
       'IT-Infra team: Active Directory, TFS, Office 365, Exchange, SharePoint.',
+    ],
+  },
+  nl: {
+    'UCB': [
+      'Full-stack ontwikkeling van businessmodules (studieontwerp, risicoregister, auditplan, adverse events…).',
+      'Angular 21-front (signals, standalone) en .NET 9-back in Clean Architecture.',
+      'Azure-integraties: Cognitive Search, Service Bus, Key Vault; generatie van Word-documenten; GxP-audittrail.',
+    ],
+    'Pluxee (Sodexo)': [
+      'Carve-out Sodexo → Pluxee: multi-tenant migratie naar Azure en datacenter, CI/CD-pipelines, IdentityServer.',
+      'WAPI — nieuwe Worker API die from scratch werd ontwikkeld ter vervanging van de legacy Viper API.',
+      'Dienstencheque-“galaxy”: 3 BFF’s (Customer, Worker, Provider) + 3 service-API’s boven de Oracle-“Viper”-database.',
+      'PAPI — integratie-API voor providers (JWKS-authenticatie) en bankintegraties (ViperAPI).',
+      'Consumentendomein: backend van de vroegere mobiele app + OrderMailScript (.NET-console die bestellingen uit e-mails parst).',
+      'Coaching van 7 ontwikkelaars, standaarden, integratiearchitectuurdiagrammen, e2e-tests (Playwright).',
+    ],
+    'FOD Buitenlandse Zaken': [
+      'Module “signalpersonen”: register van geseinde personen (criminelen, terroristen…).',
+      'Biometriemodule: vastleggen van portret, vingerafdrukken en handtekening.',
+      'API voor visumondertekening via HSM (centrale privésleutel beschermd door Azure Key Vault).',
+    ],
+    'Winamp': [
+      'Nieuwe backend voor het Winamp-ecosysteem in microservices.',
+      'Asynchrone messaging MassTransit / RabbitMQ, PostgreSQL, deployment op AKS.',
+    ],
+    'RingRing': [
+      'Nieuw portaal voor productbeheer bij RingRing.',
+      'Interne back-office / administratietool.',
+      'Angular-designsysteem (componentenbibliotheek op basis van Nebular).',
+      'Vertaal-microservice (Clean Architecture).',
+    ],
+    'Pulsar Consulting': [
+      'eLisa-platform voor industriële sites: Total, ArcelorMittal, Yara (afspraken maken, truck-call, registratie- en weegkiosken, back-offices).',
+      'Deployments in meerdere landen (FR, DE, IT, BE) over een tiental sites.',
+      'IT-Infra-team: Active Directory, TFS, Office 365, Exchange, SharePoint.',
     ],
   },
 };

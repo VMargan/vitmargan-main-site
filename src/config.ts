@@ -19,4 +19,8 @@ export const siteConfig = {
   // Umami analytics (privacy-first, self-hostable on Coolify). Fill BOTH to enable.
   umamiSrc: 'https://analytics.vitmargan.be/script.js',
   umamiWebsiteId: '1082dcc9-2335-455e-99cd-8f6aa677d45f', // website UUID from the Umami dashboard
+
+  // Base URL for large media (the podcasts). Empty = served locally from /public (dev).
+  // Point it at your Coolify storage (e.g. 'https://media.vitmargan.be') to keep the repo lean.
+  mediaBaseUrl: 'https://media.vitmargan.be/podcasts',
 } as const;

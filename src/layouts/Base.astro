@@ -39,6 +39,7 @@ const ogImage = new URL('/og.png', site).href;
 
     <link rel="alternate" hreflang="en" href={localeUrl('en')} />
     <link rel="alternate" hreflang="fr" href={localeUrl('fr')} />
+    <link rel="alternate" hreflang="nl" href={localeUrl('nl')} />
     <link rel="alternate" hreflang="x-default" href={localeUrl(defaultLang)} />
 
     <!-- Open Graph / Twitter -->
@@ -47,7 +48,7 @@ const ogImage = new URL('/og.png', site).href;
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:locale" content={lang === 'fr' ? 'fr_BE' : 'en_US'} />
+    <meta property="og:locale" content={({ en: 'en_US', fr: 'fr_BE', nl: 'nl_BE' } as const)[lang]} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />

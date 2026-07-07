@@ -12,10 +12,11 @@ const changelog = defineCollection({
     version: z.string(),
     date: z.coerce.date(),
     kind: z.enum(['feature', 'improvement', 'fix']).default('improvement'),
-    title: z.object({ fr: z.string(), en: z.string() }),
+    title: z.object({ fr: z.string(), en: z.string(), nl: z.string() }),
     notes: z.object({
       fr: z.array(z.string()),
       en: z.array(z.string()),
+      nl: z.array(z.string()),
     }),
   }),
 });

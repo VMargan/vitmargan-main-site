@@ -1,5 +1,6 @@
 ---
 import { content, type Lang } from '../i18n/content';
+import Podcast from './Podcast.astro';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
@@ -68,6 +69,7 @@ const h = t.hero;
           <p class="text-fg"><span class="text-accent">$</span> <span class="inline-block h-4 w-2 translate-y-0.5 animate-pulse bg-accent"></span></p>
         </div>
       </div>
+      <Podcast lang={lang} />
     </div>
   </div>
 </section>

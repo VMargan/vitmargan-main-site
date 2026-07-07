@@ -1,0 +1,403 @@
+---
+import { siteConfig } from '../config';
+import { type Lang } from '../i18n/content';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+
+const copy = {
+  fr: { hook: 'Pas le temps de lire ? Écoutez le podcast.', ai: 'généré par IA', back: 'Reculer de 10 secondes', fwd: 'Avancer de 10 secondes', play: 'Lecture / pause', seek: 'Déplacer la lecture', time: "Changer le format d'affichage du temps" },
+  en: { hook: 'No time to read? Listen to the podcast.', ai: 'AI-generated', back: 'Back 10 seconds', fwd: 'Forward 10 seconds', play: 'Play / pause', seek: 'Seek', time: 'Change time display format' },
+  nl: { hook: 'Geen tijd om te lezen? Beluister de podcast.', ai: 'AI-gegenereerd', back: '10 seconden terug', fwd: '10 seconden vooruit', play: 'Afspelen / pauze', seek: 'Zoeken', time: 'Tijdweergaveformaat wijzigen' },
+}[lang];
+
+const src = `${siteConfig.mediaBaseUrl}/podcast-${lang}.m4a`;
+---
+
+<div class="mt-4" data-podcast>
+  <audio preload="none" src={src} crossorigin="anonymous"></audio>
+
+  <div class="rounded-lg border border-line bg-surface/50 px-4 py-3">
+    <!-- Top row: label (left) · small voice equalizer (right) -->
+    <div class="mb-3 flex items-center justify-between gap-3">
+      <p class="flex items-center gap-1.5 font-mono text-[11px] leading-snug text-fg-dim">
+        <svg class="flex-none text-accent" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 13v-1a8 8 0 0 1 16 0v1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          <rect x="3" y="13" width="4.5" height="7" rx="2.25" stroke="currentColor" stroke-width="1.8" />
+          <rect x="16.5" y="13" width="4.5" height="7" rx="2.25" stroke="currentColor" stroke-width="1.8" />
+        </svg>
+        <span>{copy.hook} <span class="text-muted">· {copy.ai}</span></span>
+      </p>
+
+      <div class="pod-eq flex-none" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <!-- Transport controls: centered [⟲10] [▶/⏸] [10⟳] -->
+    <div class="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+      <div aria-hidden="true"></div>
+      <div class="flex items-center justify-center gap-2">
+        <button type="button" data-pod-back class="pod-skip flex h-9 w-9 flex-none items-center justify-center rounded-full border border-line bg-surface/40 text-fg-dim hover:border-accent/50 hover:bg-accent/10 hover:text-accent" aria-label={copy.back}>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 9-9 9.7 9.7 0 0 0-6.72 2.74L3 8" />
+            <path d="M3 3v5h5" />
+            <text class="pod-num" x="12.6" y="15.2" font-size="8.6" stroke="none" fill="currentColor" text-anchor="middle">10</text>
+          </svg>
+        </button>
+
+        <button type="button" data-pod-toggle class="pod-play relative flex h-11 w-11 flex-none items-center justify-center rounded-full bg-accent text-ink" aria-label={copy.play}>
+          <svg class="ico-play ml-[1px]" width="15" height="15" viewBox="0 0 14 14" fill="currentColor" aria-hidden="true"><path d="M3 2.2v9.6a.6.6 0 0 0 .92.5l7.2-4.8a.6.6 0 0 0 0-1L3.92 1.7A.6.6 0 0 0 3 2.2Z" /></svg>
+          <svg class="ico-pause" width="13" height="13" viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><rect x="1.5" y="1" width="3" height="10" rx="1" /><rect x="7.5" y="1" width="3" height="10" rx="1" /></svg>
+        </button>
+
+        <button type="button" data-pod-fwd class="pod-skip flex h-9 w-9 flex-none items-center justify-center rounded-full border border-line bg-surface/40 text-fg-dim hover:border-accent/50 hover:bg-accent/10 hover:text-accent" aria-label={copy.fwd}>
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.9 1 6.72 2.74L21 8" />
+            <path d="M21 3v5h-5" />
+            <text class="pod-num" x="11.4" y="15.2" font-size="8.6" stroke="none" fill="currentColor" text-anchor="middle">10</text>
+          </svg>
+        </button>
+      </div>
+      <div aria-hidden="true"></div>
+    </div>
+
+    <!-- Progress bar + clickable time on its right (cycles elapsed → elapsed/total → remaining) -->
+    <div class="flex items-center gap-3">
+      <div data-pod-track class="pod-track relative h-4 flex-1 cursor-pointer select-none">
+        <div class="pod-rail absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-line"></div>
+        <div data-pod-bar class="pod-fill absolute left-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-accent" style="width:0%"></div>
+        <button type="button" data-pod-handle class="pod-handle" style="left:0%" aria-label={copy.seek}></button>
+      </div>
+      <button type="button" data-pod-time class="pod-time flex-none font-mono text-[10px] tabular-nums text-muted" aria-label={copy.time}>0:00</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* ---- play / pause icon swap, driven by .is-playing on the container ---- */
+  [data-podcast] .ico-pause { display: none; }
+  [data-podcast].is-playing .ico-play { display: none; }
+  [data-podcast].is-playing .ico-pause { display: block; }
+
+  /* ---- primary play/pause button: glow, hover lift, active press ---- */
+  .pod-play {
+    box-shadow: 0 3px 14px -3px color-mix(in oklab, var(--color-accent) 65%, transparent);
+    transition: transform 0.18s cubic-bezier(0.2, 0.6, 0.2, 1),
+      box-shadow 0.25s ease, background-color 0.2s ease;
+  }
+  .pod-play:hover {
+    background: var(--color-accent-2);
+    transform: translateY(-1px) scale(1.06);
+    box-shadow: 0 6px 20px -3px color-mix(in oklab, var(--color-accent) 85%, transparent);
+  }
+  .pod-play:active { transform: scale(0.94); }
+
+  /* soft pulsing ring only while playing */
+  .pod-play::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    border: 1.5px solid var(--color-accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+  [data-podcast].is-playing .pod-play::after { animation: pod-pulse 2.1s ease-out infinite; }
+  @keyframes pod-pulse {
+    0%   { transform: scale(1);    opacity: 0.5; }
+    70%  { transform: scale(1.42); opacity: 0; }
+    100% { transform: scale(1.42); opacity: 0; }
+  }
+
+  /* ---- skip buttons: smooth hover/active ---- */
+  .pod-skip {
+    transition: color 0.18s ease, border-color 0.18s ease,
+      background-color 0.18s ease, transform 0.18s ease;
+  }
+  .pod-skip:hover { transform: translateY(-1px); }
+  .pod-skip:active { transform: scale(0.9); }
+  .pod-num { font-family: var(--font-mono); font-weight: 700; letter-spacing: -0.5px; }
+
+  /* ---- timeline: draggable round handle ---- */
+  .pod-track { touch-action: none; }
+  .pod-handle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 11px;
+    height: 11px;
+    padding: 0;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    border: 2px solid var(--color-ink);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-accent) 45%, transparent),
+      0 1px 4px rgba(0, 0, 0, 0.4);
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 0.15s cubic-bezier(0.2, 0.6, 0.2, 1), box-shadow 0.15s ease;
+    cursor: grab;
+    touch-action: none;
+  }
+  .pod-handle:hover,
+  [data-podcast].is-scrubbing .pod-handle {
+    transform: translate(-50%, -50%) scale(1.3);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-accent) 22%, transparent),
+      0 1px 5px rgba(0, 0, 0, 0.45);
+  }
+  [data-podcast].is-scrubbing .pod-handle { cursor: grabbing; }
+
+  /* ---- clickable time (bottom-left) ---- */
+  .pod-time {
+    cursor: pointer;
+    padding: 1px 4px;
+    margin-left: -4px;
+    border-radius: 4px;
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+  .pod-time:hover {
+    color: var(--color-fg-dim);
+    background: color-mix(in oklab, var(--color-line) 55%, transparent);
+  }
+
+  /* ---- small voice equalizer: thin bars, height driven by JS (Web Audio) ---- */
+  .pod-eq {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+  }
+  .pod-eq span {
+    width: 2px;
+    height: 3px;            /* idle height, updated per-frame while playing */
+    border-radius: 1px;
+    background: var(--color-accent);
+    opacity: 0.85;
+    will-change: height;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-podcast].is-playing .pod-play::after { animation: none; }
+    .pod-play, .pod-skip, .pod-handle, .pod-time { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-podcast]').forEach((pod) => {
+    const audio = pod.querySelector<HTMLAudioElement>('audio');
+    const toggle = pod.querySelector<HTMLElement>('[data-pod-toggle]');
+    const back = pod.querySelector<HTMLElement>('[data-pod-back]');
+    const fwd = pod.querySelector<HTMLElement>('[data-pod-fwd]');
+    const track = pod.querySelector<HTMLElement>('[data-pod-track]');
+    const bar = pod.querySelector<HTMLElement>('[data-pod-bar]');
+    const handle = pod.querySelector<HTMLElement>('[data-pod-handle]');
+    const time = pod.querySelector<HTMLElement>('[data-pod-time]');
+    if (!audio || !toggle || !back || !fwd || !track || !bar || !handle || !time) return;
+
+    const fmt = (s: number) =>
+      isFinite(s) && s >= 0 ? `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}` : '0:00';
+
+    // --- time display: cycles elapsed -> elapsed/total -> remaining ---
+    const TIME_MODES = ['elapsed', 'total', 'remaining'] as const;
+    let timeMode = 0; // default: elapsed only
+
+    const formatTime = (shown: number, dur: number, hasDur: boolean) => {
+      switch (TIME_MODES[timeMode]) {
+        case 'total':
+          return hasDur ? `${fmt(shown)} / ${fmt(dur)}` : fmt(shown);
+        case 'remaining':
+          return hasDur ? `-${fmt(Math.max(0, dur - shown))}` : fmt(shown);
+        default:
+          return fmt(shown);
+      }
+    };
+
+    let scrubbing = false;
+    let scrubFrac = 0;
+
+    const render = () => {
+      const dur = audio.duration;
+      const hasDur = isFinite(dur) && dur > 0;
+      const frac = scrubbing ? scrubFrac : hasDur ? audio.currentTime / dur : 0;
+      const pct = Math.min(1, Math.max(0, frac)) * 100;
+      bar.style.width = pct + '%';
+      handle.style.left = pct + '%';
+      const shown = scrubbing && hasDur ? frac * dur : audio.currentTime;
+      time.textContent = formatTime(shown, dur, hasDur);
+    };
+
+    // cycle the time format on click, then re-render
+    time.addEventListener('click', () => {
+      timeMode = (timeMode + 1) % TIME_MODES.length;
+      render();
+    });
+
+    // ==================================================================
+    //  Voice equalizer — real Web Audio analysis with robust fake fallback
+    // ==================================================================
+    const eqBars = Array.from(pod.querySelectorAll<HTMLElement>('.pod-eq span'));
+    const IDLE_H = 3;
+    const MAX_H = 11;
+    const N = eqBars.length;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // voice-like max amplitude per bar (peaks in the low-mid range, not uniform)
+    const fakeProfile = [0.45, 0.72, 1.0, 0.85, 0.62, 0.48, 0.34];
+    // per-bar gain for real data (higher voice bands carry less energy)
+    const weights = eqBars.map((_, i) => 1 + i * 0.3);
+
+    if (reduceMotion) {
+      // static, staggered bars — no animation, no RAF
+      eqBars.forEach((b, i) => {
+        const p = fakeProfile[i] ?? 0.5;
+        b.style.height = (IDLE_H + p * 0.6 * (MAX_H - IDLE_H)).toFixed(1) + 'px';
+      });
+    }
+
+    let audioCtx: AudioContext | null = null;
+    let analyser: AnalyserNode | null = null;
+    let srcNode: MediaElementAudioSourceNode | null = null;
+    let freqData: Uint8Array | null = null;
+    let binRanges: Array<[number, number]> = [];
+    let rafId = 0;
+    let useFake = false;
+    let sawSignal = false;
+    let silentFrames = 0;
+    const levels = new Array(N).fill(0); // current smoothed 0..1 level per bar
+
+    const setupAudio = () => {
+      if (audioCtx || useFake) return;
+      try {
+        const Ctx = window.AudioContext || (window as any).webkitAudioContext;
+        if (!Ctx) { useFake = true; return; }
+        audioCtx = new Ctx();
+        srcNode = audioCtx.createMediaElementSource(audio);
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 128;
+        analyser.smoothingTimeConstant = 0.75;
+        srcNode.connect(analyser);
+        analyser.connect(audioCtx.destination);
+        freqData = new Uint8Array(analyser.frequencyBinCount);
+        // map each bar to a log-spaced band of bins across the voice range
+        const bins = analyser.frequencyBinCount; // 64
+        const lo = 1;
+        const hi = Math.min(bins - 1, 40);
+        binRanges = eqBars.map((_, i) => {
+          const a = Math.floor(lo * Math.pow(hi / lo, i / N));
+          const b = Math.max(a + 1, Math.floor(lo * Math.pow(hi / lo, (i + 1) / N)));
+          return [a, Math.min(b, bins)];
+        });
+      } catch {
+        useFake = true;
+        audioCtx = null; analyser = null; srcNode = null; freqData = null;
+      }
+    };
+
+    const paint = () => {
+      for (let i = 0; i < N; i++) {
+        const v = Math.min(1, Math.max(0, levels[i]));
+        eqBars[i].style.height = (IDLE_H + v * (MAX_H - IDLE_H)).toFixed(1) + 'px';
+      }
+    };
+
+    const tick = () => {
+      if (audio.paused) { rafId = 0; return; }
+
+      if (!useFake && analyser && freqData) {
+        analyser.getByteFrequencyData(freqData);
+        let sum = 0;
+        for (let i = 0; i < N; i++) {
+          const [a, b] = binRanges[i];
+          let acc = 0;
+          for (let j = a; j < b; j++) acc += freqData[j];
+          sum += acc;
+          const avg = acc / Math.max(1, b - a);
+          const target = Math.min(1, (avg / 255) * weights[i]);
+          const k = target > levels[i] ? 0.6 : 0.25; // fast attack, slower decay
+          levels[i] += (target - levels[i]) * k;
+        }
+        // tainted-stream detection: only fall back if we NEVER see any signal
+        // (avoids false positives during real speech pauses)
+        if (sum > 0) { sawSignal = true; silentFrames = 0; }
+        else if (!sawSignal && ++silentFrames > 60) useFake = true;
+      } else {
+        // organic fake: per-bar random walk with DIFFERENT amplitude ranges
+        for (let i = 0; i < N; i++) {
+          const target = Math.random() * fakeProfile[i];
+          const k = target > levels[i] ? 0.5 : 0.22;
+          levels[i] += (target - levels[i]) * k;
+        }
+      }
+
+      paint();
+      rafId = requestAnimationFrame(tick);
+    };
+
+    const startViz = () => {
+      if (reduceMotion || !N) return;
+      setupAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+      if (!rafId) rafId = requestAnimationFrame(tick);
+    };
+
+    const stopViz = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+      if (reduceMotion) return;
+      for (let i = 0; i < N; i++) levels[i] = 0;
+      eqBars.forEach((b) => (b.style.height = IDLE_H + 'px'));
+    };
+
+    // --- play / pause ---
+    toggle.addEventListener('click', () => { audio.paused ? audio.play() : audio.pause(); });
+    audio.addEventListener('play', () => { pod.classList.add('is-playing'); startViz(); });
+    audio.addEventListener('pause', () => { pod.classList.remove('is-playing'); stopViz(); });
+    audio.addEventListener('ended', () => { pod.classList.remove('is-playing'); stopViz(); });
+    audio.addEventListener('timeupdate', () => { if (!scrubbing) render(); });
+    audio.addEventListener('loadedmetadata', render);
+    audio.addEventListener('durationchange', render);
+
+    // --- skip ±10s ---
+    const skip = (delta: number) => {
+      audio.currentTime = Math.max(0, Math.min(audio.duration || Infinity, audio.currentTime + delta));
+    };
+    back.addEventListener('click', () => skip(-10));
+    fwd.addEventListener('click', () => skip(10));
+
+    // --- scrub / seek via Pointer Events (mouse + touch) ---
+    const fracFromX = (clientX: number) => {
+      const r = track.getBoundingClientRect();
+      return Math.min(1, Math.max(0, (clientX - r.left) / r.width));
+    };
+    const applyScrub = (clientX: number) => {
+      scrubFrac = fracFromX(clientX);
+      if (isFinite(audio.duration) && audio.duration > 0) audio.currentTime = scrubFrac * audio.duration;
+      render();
+    };
+    const startScrub = (e: PointerEvent) => {
+      if (!isFinite(audio.duration) || audio.duration <= 0) return; // no-op seeking until metadata known
+      scrubbing = true;
+      pod.classList.add('is-scrubbing');
+      track.setPointerCapture(e.pointerId);
+      applyScrub(e.clientX);
+      e.preventDefault();
+    };
+    const moveScrub = (e: PointerEvent) => {
+      if (!scrubbing) return;
+      applyScrub(e.clientX);
+      e.preventDefault();
+    };
+    const endScrub = (e: PointerEvent) => {
+      if (!scrubbing) return;
+      scrubbing = false;
+      pod.classList.remove('is-scrubbing');
+      try { track.releasePointerCapture(e.pointerId); } catch {}
+      render();
+    };
+    track.addEventListener('pointerdown', startScrub);
+    track.addEventListener('pointermove', moveScrub);
+    track.addEventListener('pointerup', endScrub);
+    track.addEventListener('pointercancel', endScrub);
+
+    render();
+  });
+</script>

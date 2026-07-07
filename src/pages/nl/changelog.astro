@@ -1,0 +1,12 @@
+---
+import Base from '../../layouts/Base.astro';
+import ChangelogView from '../../components/ChangelogView.astro';
+import { content } from '../../i18n/content';
+
+const lang = 'nl' as const;
+const c = content[lang].changelog;
+---
+
+<Base lang={lang} title={`${c.title} — Vincent Margan`} description={c.intro} path="/changelog">
+  <ChangelogView lang={lang} />
+</Base>

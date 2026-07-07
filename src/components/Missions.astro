@@ -5,7 +5,7 @@ import SectionHeading from './SectionHeading.astro';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const m = content[lang].missions;
-const projectsLabel = lang === 'fr' ? 'Voir les réalisations' : 'View projects';
+const projectsLabel = ({ fr: 'Voir les réalisations', en: 'View projects', nl: 'Bekijk de realisaties' } as const)[lang];
 const items = m.items.map((mission) => ({
   ...mission,
   projects: missionProjects[lang][mission.client] ?? [],

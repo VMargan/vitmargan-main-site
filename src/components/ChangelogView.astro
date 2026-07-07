@@ -1,15 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import { content, defaultLang, type Lang } from '../i18n/content';
+import { content, defaultLang, languages, localizePath, type Lang } from '../i18n/content';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const c = content[lang].changelog;
 
-const otherLang: Lang = lang === 'fr' ? 'en' : 'fr';
 const homeHref = lang === defaultLang ? '/' : `/${lang}`;
-const otherHref = otherLang === defaultLang ? '/changelog' : `/${otherLang}/changelog`;
-const otherLabel = content[lang].langSwitchLabel;
+const locales = Object.keys(languages) as Lang[];
 
 const entries = (await getCollection('changelog')).sort((a, b) => {
   const pa = a.data.version.split('.').map(Number);
@@ -22,7 +20,7 @@ const entries = (await getCollection('changelog')).sort((a, b) => {
 });
 
 const fmt = (d: Date) =>
-  new Intl.DateTimeFormat(lang === 'fr' ? 'fr-BE' : 'en-GB', {
+  new Intl.DateTimeFormat(({ en: 'en-GB', fr: 'fr-BE', nl: 'nl-BE' } as const)[lang], {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -35,7 +33,18 @@ const fmt = (d: Date) =>
       <span class="text-fg">vitmargan</span><span class="text-accent">.be</span>
     </a>
     <div class="flex items-center gap-4">
-      <a href={otherHref} class="font-mono text-xs text-fg-dim transition-colors hover:text-accent">{otherLabel}</a>
+      <div class="flex items-center gap-1.5 font-mono text-xs" aria-label="Language">
+        {locales.map((l, i) => (
+          <Fragment>
+            {i > 0 && <span class="text-line" aria-hidden="true">·</span>}
+            {l === lang ? (
+              <span class="text-accent" aria-current="true">{l.toUpperCase()}</span>
+            ) : (
+              <a href={localizePath('/changelog', l)} class="text-fg-dim transition-colors hover:text-accent" aria-label={languages[l]}>{l.toUpperCase()}</a>
+            )}
+          </Fragment>
+        ))}
+      </div>
       <span class="h-4 w-px bg-line"></span>
       <a href={homeHref} class="link-underline inline-flex items-center gap-1.5 text-sm text-fg-dim transition-colors hover:text-fg">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">

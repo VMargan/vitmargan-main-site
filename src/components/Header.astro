@@ -1,11 +1,10 @@
 ---
-import { content, defaultLang, type Lang } from '../i18n/content';
+import { content, languages, localizePath, type Lang } from '../i18n/content';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const t = content[lang];
-const otherLang: Lang = lang === 'fr' ? 'en' : 'fr';
-const otherHref = otherLang === defaultLang ? '/' : `/${otherLang}`;
+const locales = Object.keys(languages) as Lang[];
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 border-b border-line/60 bg-ink/70 backdrop-blur-md">
@@ -25,13 +24,18 @@ const otherHref = otherLang === defaultLang ? '/' : `/${otherLang}`;
     </ul>
 
     <div class="flex items-center gap-3">
-      <a
-        href={otherHref}
-        class="font-mono text-xs text-fg-dim transition-colors hover:text-accent"
-        aria-label={`Switch language to ${t.langSwitchLabel}`}
-      >
-        {t.langSwitchLabel}
-      </a>
+      <div class="flex items-center gap-1.5 font-mono text-xs" aria-label="Language">
+        {locales.map((l, i) => (
+          <Fragment>
+            {i > 0 && <span class="text-line" aria-hidden="true">·</span>}
+            {l === lang ? (
+              <span class="text-accent" aria-current="true">{l.toUpperCase()}</span>
+            ) : (
+              <a href={localizePath('/', l)} class="text-fg-dim transition-colors hover:text-accent" aria-label={languages[l]}>{l.toUpperCase()}</a>
+            )}
+          </Fragment>
+        ))}
+      </div>
       <span class="hidden h-4 w-px bg-line lg:block"></span>
       <a
         href="#contact"

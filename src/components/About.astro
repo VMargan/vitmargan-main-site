@@ -5,10 +5,12 @@ import SectionHeading from './SectionHeading.astro';
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const a = content[lang].about;
-const alt = lang === 'fr'
-  ? 'Vincent Margan, ingénieur logiciel freelance'
-  : 'Vincent Margan, freelance software engineer';
-const caption = lang === 'fr' ? 'Freelance · Belgique' : 'Freelance · Belgium';
+const alt = ({
+  fr: 'Vincent Margan, ingénieur logiciel freelance',
+  en: 'Vincent Margan, freelance software engineer',
+  nl: 'Vincent Margan, freelance software engineer',
+} as const)[lang];
+const caption = ({ fr: 'Freelance · Belgique', en: 'Freelance · Belgium', nl: 'Freelance · België' } as const)[lang];
 ---
 
 <section id="about" class="relative border-t border-line/50 py-24 md:py-32">
