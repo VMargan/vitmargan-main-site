@@ -230,14 +230,12 @@
   transform: translateY(-50%);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.85), transparent);
 }
-.shooting-star.s1 { top: 8%;  left: 72%; animation: shoot 18s ease-in 3s  infinite; }
-.shooting-star.s2 { top: 34%; left: 20%; --dx: 62vw; --dy: 60vh; --rot: -135deg; animation: shoot 24s ease-in 11s infinite; }
-.shooting-star.s3 { top: 16%; left: 88%; animation: shoot 21s ease-in 17s infinite; }
+/* JS schedules WHEN a star flies (rare & random); direction via --dx/--dy/--rot. */
+.shooting-star.is-active { animation: shoot 1.2s ease-in forwards; }
 @keyframes shoot {
   0%   { transform: translate3d(0, 0, 0) rotate(var(--rot)); opacity: 0; }
-  1%   { opacity: 1; }
-  12%  { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); opacity: 1; }
-  15%  { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); opacity: 0; }
+  10%  { opacity: 1; }
+  85%  { opacity: 1; }
   100% { transform: translate3d(var(--dx), var(--dy), 0) rotate(var(--rot)); opacity: 0; }
 }
 

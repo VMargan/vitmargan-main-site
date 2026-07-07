@@ -82,9 +82,7 @@ const ogImage = new URL('/og.png', site).href;
         <circle cx="8" cy="10" r="1.5" /><circle cx="126" cy="4" r="1.4" /><circle cx="60" cy="120" r="1.4" />
       </svg>
     </div>
-    <span class="shooting-star s1" aria-hidden="true"></span>
-    <span class="shooting-star s2" aria-hidden="true"></span>
-    <span class="shooting-star s3" aria-hidden="true"></span>
+    <span class="shooting-star" id="shooting-star" aria-hidden="true"></span>
     <div class="aurora" aria-hidden="true"></div>
     <div class="grain-overlay" aria-hidden="true"></div>
     <slot />
@@ -124,6 +122,34 @@ const ogImage = new URL('/og.png', site).href;
             }, 260);
           }, 2600);
         }
+      }
+
+      // Shooting stars — rare & random: one within the first minute, then ~1 / 15 min.
+      const star = document.querySelector<HTMLElement>('#shooting-star');
+      if (star && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+        const dirs = [
+          { dx: '-62vw', dy: '64vh', rot: '-45deg' }, // down-left
+          { dx: '62vw', dy: '60vh', rot: '-135deg' }, // down-right
+        ];
+        const launch = () => {
+          const d = dirs[Math.random() < 0.5 ? 0 : 1];
+          star.style.top = rnd(4, 32) + '%';
+          star.style.left = (d.dx.startsWith('-') ? rnd(56, 92) : rnd(8, 44)) + '%';
+          star.style.setProperty('--dx', d.dx);
+          star.style.setProperty('--dy', d.dy);
+          star.style.setProperty('--rot', d.rot);
+          star.classList.remove('is-active');
+          void star.offsetWidth; // reflow to restart the animation
+          star.classList.add('is-active');
+        };
+        const schedule = (delay: number) => {
+          setTimeout(() => {
+            launch();
+            schedule(rnd(10 * 60_000, 20 * 60_000)); // then ~1 every 15 min
+          }, delay);
+        };
+        schedule(rnd(5_000, 60_000)); // first star within the first minute (min 5s)
       }
     </script>
   </body>
