@@ -89,7 +89,7 @@ export interface SiteContent {
 export const content: Record<Lang, SiteContent> = {
   fr: {
     meta: {
-      title: 'Vincent Margan — Freelance IT · Ingénieur logiciel .NET / Angular',
+      title: 'Vincent Margan — Freelance IT · .NET / Angular Software Engineer & Architect',
       description:
         'Freelance IT en Belgique, +10 ans d’expérience. Développeur full-stack .NET / Angular, cloud Azure, DevOps & leadership technique. Du concept à la production.',
     },
@@ -105,7 +105,7 @@ export const content: Record<Lang, SiteContent> = {
     hero: {
       eyebrow: 'Freelance IT · Belgique · Disponible',
       name: 'Vincent Margan',
-      roles: ['Ingénieur logiciel', 'Tech Lead .NET', 'Développeur full-stack', 'Architecte de solutions'],
+      roles: ['Software Engineer', '.NET Tech Lead', 'Full-stack Developer', 'Solution Architect'],
       title: 'Je conçois et développe des produits logiciels solides, du concept à la production.',
       lead:
         'Freelance avec plus de dix ans d’expérience, je couvre toute la chaîne technique — full-stack .NET / Angular, cloud Azure, DevOps et architecture — sur des environnements exigeants, du secteur public à la fintech.',
@@ -115,7 +115,7 @@ export const content: Record<Lang, SiteContent> = {
       terminalTitle: 'vincent@vitmargan',
       terminal: [
         '$ whoami',
-        'Vincent Margan — software engineer · freelance',
+        'Vincent Margan — Freelance Software Engineer & Architect',
         '$ cat stack.txt',
         '.NET · C# · Angular · Azure · DevOps · IA',
         '$ ./status --availability',
@@ -183,11 +183,11 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           client: 'UCB',
-          role: 'Software Developer',
+          role: 'Senior Software Engineer, Full-stack',
           period: '2026 — aujourd’hui',
           current: true,
           summary:
-            'Développeur full-stack sur une plateforme interne d’évaluation des risques et de gestion des protocoles d’études cliniques, en environnement pharmaceutique réglementé (GxP).',
+            'Full-stack developer sur une plateforme interne d’évaluation des risques et de gestion des protocoles d’études cliniques, en environnement pharmaceutique réglementé (GxP).',
           highlights: [
             'Développement de modules métier sur une plateforme SaaS interne déployée sur Azure.',
             'Front Angular 21 (signals, composants standalone) et back .NET 9 en Clean Architecture.',
@@ -197,7 +197,7 @@ export const content: Record<Lang, SiteContent> = {
         },
         {
           client: 'Pluxee (Sodexo)',
-          role: 'Tech Lead .NET / Chapter Lead',
+          role: 'Tech Lead / Application Architect (.NET)',
           period: '2023 — 2026',
           summary:
             'Tech lead sur la galaxie d’applications Titres-Services et chèques (secteur public & fintech) : BFF, APIs et intégrations à fort volume.',
@@ -214,7 +214,7 @@ export const content: Record<Lang, SiteContent> = {
           role: 'Solution Architect',
           period: '2022 — 2023',
           summary:
-            'Architecte de solutions sur les nouvelles applications Visa & Passeport, référent central entre les équipes Dev, Infra, Réseau et Sécurité.',
+            'Solution architect sur les nouvelles applications Visa & Passeport, référent central entre les équipes Dev, Infra, Réseau et Sécurité.',
           highlights: [
             'Conception des modules « signal persons », biométrie et signature de visa via HSM.',
             'Applications .NET Core / Angular sécurisées, clés protégées par Azure Key Vault (HSM).',
@@ -238,7 +238,7 @@ export const content: Record<Lang, SiteContent> = {
           role: 'Senior Software Engineer',
           period: '2020 — 2021',
           summary:
-            'Développeur senior dans l’équipe produit, sur l’ensemble de la chaîne — du front Angular au back .NET en micro-services.',
+            'Senior developer dans l’équipe produit, sur l’ensemble de la chaîne — du front Angular au back .NET en micro-services.',
           highlights: [
             'Nouveau portail de gestion des produits, back-office et design system Angular.',
             'Architecture micro-services (IdentityServer, RabbitMQ).',
@@ -250,7 +250,7 @@ export const content: Record<Lang, SiteContent> = {
           role: 'Full-Stack Developer / Tech Lead',
           period: '2015 — 2020',
           summary:
-            'Développeur full-stack et tech lead sur de nombreux projets industriels (plateforme eLisa pour Total, ArcelorMittal, Yara… à travers l’Europe), et membre de l’équipe IT-Infra.',
+            'Full-stack developer et tech lead sur de nombreux projets industriels (plateforme eLisa pour Total, ArcelorMittal, Yara… à travers l’Europe), et membre de l’équipe IT-Infra.',
           highlights: [
             'Sites de prise de rendez-vous, kiosques d’enregistrement, interfaces de pesage et back-offices.',
             'Administration de l’infrastructure interne (Active Directory, TFS, Office 365, Exchange, SharePoint).',
@@ -313,8 +313,8 @@ export const content: Record<Lang, SiteContent> = {
       kicker: 'À propos',
       title: 'Un partenaire technique, pas juste une paire de bras.',
       paragraphs: [
-        'Je suis Vincent Margan, ingénieur logiciel freelance basé en Belgique, avec plus de dix ans d’expérience sur des environnements exigeants — du secteur public à la fintech, en passant par l’industrie et la pharma. Développeur full-stack .NET / Angular, j’interviens autant sur le code que sur l’architecture, le cloud et les pipelines de déploiement.',
-        'Au fil des missions, j’ai porté des rôles de tech lead, d’architecte de solutions et de coach technique. J’aime comprendre le « pourquoi » avant le « comment » : un bon logiciel, c’est une réponse claire à un besoin réel, livrée proprement et pensée pour durer.',
+        'Je suis Vincent Margan, Freelance Software Engineer & Architect basé en Belgique, avec plus de dix ans d’expérience sur des environnements exigeants — du secteur public à la fintech, en passant par l’industrie et la pharma. Développeur full-stack .NET / Angular, j’interviens autant sur le code que sur l’architecture, le cloud et les pipelines de déploiement.',
+        'Au fil des missions, j’ai porté des rôles de tech lead, de solution architect et de coach technique. J’aime comprendre le « pourquoi » avant le « comment » : un bon logiciel, c’est une réponse claire à un besoin réel, livrée proprement et pensée pour durer.',
         'Je fais aussi partie de ceux qui embrassent pleinement le développement assisté par IA — workflows agentiques, MCP, montée en abstraction — pour livrer plus vite sans rien sacrifier à la qualité, dans un écosystème que je suis de près.',
       ],
       principles: [
@@ -341,7 +341,7 @@ export const content: Record<Lang, SiteContent> = {
       ],
     },
     footer: {
-      tagline: 'Ingénieur logiciel freelance — disponible pour vos projets.',
+      tagline: 'Freelance Software Engineer & Architect — disponible pour vos projets.',
       rights: 'Tous droits réservés.',
       madeWith: 'Conçu & développé avec Astro',
       backToTop: 'Haut de page',
@@ -358,7 +358,7 @@ export const content: Record<Lang, SiteContent> = {
 
   en: {
     meta: {
-      title: 'Vincent Margan — Freelance IT · .NET / Angular Software Engineer',
+      title: 'Vincent Margan — Freelance IT · .NET / Angular Software Engineer & Architect',
       description:
         'Freelance IT in Belgium, 10+ years of experience. Full-stack .NET / Angular developer, Azure cloud, DevOps & technical leadership. From concept to production.',
     },
@@ -384,7 +384,7 @@ export const content: Record<Lang, SiteContent> = {
       terminalTitle: 'vincent@vitmargan',
       terminal: [
         '$ whoami',
-        'Vincent Margan — software engineer · freelance',
+        'Vincent Margan — Freelance Software Engineer & Architect',
         '$ cat stack.txt',
         '.NET · C# · Angular · Azure · DevOps · AI',
         '$ ./status --availability',
@@ -452,7 +452,7 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           client: 'UCB',
-          role: 'Software Developer',
+          role: 'Senior Software Engineer, Full-stack',
           period: '2026 — present',
           current: true,
           summary:
@@ -466,7 +466,7 @@ export const content: Record<Lang, SiteContent> = {
         },
         {
           client: 'Pluxee (Sodexo)',
-          role: '.NET Tech Lead / Chapter Lead',
+          role: 'Tech Lead / Application Architect (.NET)',
           period: '2023 — 2026',
           summary:
             'Tech lead on the Titres-Services and vouchers application galaxy (public sector & fintech): BFFs, APIs and high-volume integrations.',
@@ -582,7 +582,7 @@ export const content: Record<Lang, SiteContent> = {
       kicker: 'About',
       title: 'A technical partner, not just an extra pair of hands.',
       paragraphs: [
-        'I am Vincent Margan, a freelance software engineer based in Belgium, with 10+ years of experience across demanding environments — from public sector to fintech, industry and pharma. As a full-stack .NET / Angular developer, I work as much on the code as on the architecture, the cloud and the deployment pipelines.',
+        'I am Vincent Margan, a Freelance Software Engineer & Architect based in Belgium, with 10+ years of experience across demanding environments — from public sector to fintech, industry and pharma. As a full-stack .NET / Angular developer, I work as much on the code as on the architecture, the cloud and the deployment pipelines.',
         'Across missions I have taken on tech lead, solution architect and technical coach roles. I like to understand the "why" before the "how": good software is not just code that works, it is a clear answer to a real need, delivered cleanly and built to last.',
         'I am also among those who fully embrace AI-assisted development — agentic workflows, MCP, working at a higher level of abstraction — to ship faster without sacrificing quality, in an ecosystem I follow closely.',
       ],
@@ -610,7 +610,7 @@ export const content: Record<Lang, SiteContent> = {
       ],
     },
     footer: {
-      tagline: 'Freelance software engineer — available for your projects.',
+      tagline: 'Freelance Software Engineer & Architect — available for your projects.',
       rights: 'All rights reserved.',
       madeWith: 'Designed & built with Astro',
       backToTop: 'Back to top',
@@ -627,7 +627,7 @@ export const content: Record<Lang, SiteContent> = {
 
   nl: {
     meta: {
-      title: 'Vincent Margan — Freelance IT · Softwareontwikkelaar .NET / Angular',
+      title: 'Vincent Margan — Freelance IT · .NET / Angular Software Engineer & Architect',
       description:
         'Freelance IT in België, 10+ jaar ervaring. Full-stack .NET / Angular-ontwikkelaar, Azure-cloud, DevOps & technisch leiderschap. Van concept tot productie.',
     },
@@ -643,7 +643,7 @@ export const content: Record<Lang, SiteContent> = {
     hero: {
       eyebrow: 'Freelance IT · België · Beschikbaar',
       name: 'Vincent Margan',
-      roles: ['Software engineer', '.NET Tech Lead', 'Full-stack developer', 'Solution architect'],
+      roles: ['Software Engineer', '.NET Tech Lead', 'Full-stack Developer', 'Solution Architect'],
       title: 'Ik ontwerp en bouw solide softwareproducten, van concept tot productie.',
       lead:
         'Als freelancer met meer dan tien jaar ervaring dek ik de volledige technische keten — full-stack .NET / Angular, Azure-cloud, DevOps en architectuur — in veeleisende omgevingen, van de publieke sector tot fintech.',
@@ -653,7 +653,7 @@ export const content: Record<Lang, SiteContent> = {
       terminalTitle: 'vincent@vitmargan',
       terminal: [
         '$ whoami',
-        'Vincent Margan — software engineer · freelance',
+        'Vincent Margan — Freelance Software Engineer & Architect',
         '$ cat stack.txt',
         '.NET · C# · Angular · Azure · DevOps · AI',
         '$ ./status --availability',
@@ -721,7 +721,7 @@ export const content: Record<Lang, SiteContent> = {
       items: [
         {
           client: 'UCB',
-          role: 'Software Developer',
+          role: 'Senior Software Engineer, Full-stack',
           period: '2026 — heden',
           current: true,
           summary:
@@ -735,7 +735,7 @@ export const content: Record<Lang, SiteContent> = {
         },
         {
           client: 'Pluxee (Sodexo)',
-          role: '.NET Tech Lead / Chapter Lead',
+          role: 'Tech Lead / Application Architect (.NET)',
           period: '2023 — 2026',
           summary:
             'Tech lead op de applicatie-“galaxy” rond dienstencheques en vouchers (publieke sector & fintech): BFF’s, API’s en integraties met een hoog volume.',
@@ -851,7 +851,7 @@ export const content: Record<Lang, SiteContent> = {
       kicker: 'Over mij',
       title: 'Een technische partner, niet zomaar een extra paar handen.',
       paragraphs: [
-        'Ik ben Vincent Margan, freelance software engineer gevestigd in België, met meer dan tien jaar ervaring in veeleisende omgevingen — van de publieke sector tot fintech, industrie en farma. Als full-stack .NET / Angular-ontwikkelaar werk ik evengoed aan de code als aan de architectuur, de cloud en de deployment-pipelines.',
+        'Ik ben Vincent Margan, Freelance Software Engineer & Architect, gevestigd in België, met meer dan tien jaar ervaring in veeleisende omgevingen — van de publieke sector tot fintech, industrie en farma. Als full-stack .NET / Angular-ontwikkelaar werk ik evengoed aan de code als aan de architectuur, de cloud en de deployment-pipelines.',
         'Doorheen mijn opdrachten heb ik rollen opgenomen als tech lead, solution architect en technisch coach. Ik begrijp graag het “waarom” vóór het “hoe”: goede software is niet zomaar code die werkt, het is een helder antwoord op een echte behoefte, netjes opgeleverd en gebouwd om te blijven.',
         'Ik hoor ook bij wie AI-ondersteunde ontwikkeling ten volle omarmt — agentic workflows, MCP, werken op een hoger abstractieniveau — om sneller te leveren zonder in te boeten op kwaliteit, in een ecosysteem dat ik op de voet volg.',
       ],
@@ -879,7 +879,7 @@ export const content: Record<Lang, SiteContent> = {
       ],
     },
     footer: {
-      tagline: 'Freelance software engineer — beschikbaar voor uw projecten.',
+      tagline: 'Freelance Software Engineer & Architect — beschikbaar voor uw projecten.',
       rights: 'Alle rechten voorbehouden.',
       madeWith: 'Ontworpen & gebouwd met Astro',
       backToTop: 'Naar boven',

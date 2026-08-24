@@ -6,9 +6,9 @@ interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const a = content[lang].about;
 const alt = ({
-  fr: 'Vincent Margan, ingénieur logiciel freelance',
-  en: 'Vincent Margan, freelance software engineer',
-  nl: 'Vincent Margan, freelance software engineer',
+  fr: 'Vincent Margan, Freelance Software Engineer & Architect',
+  en: 'Vincent Margan, Freelance Software Engineer & Architect',
+  nl: 'Vincent Margan, Freelance Software Engineer & Architect',
 } as const)[lang];
 const caption = ({ fr: 'Freelance · Belgique', en: 'Freelance · Belgium', nl: 'Freelance · België' } as const)[lang];
 ---
