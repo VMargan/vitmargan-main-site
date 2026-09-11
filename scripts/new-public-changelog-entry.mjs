@@ -4,7 +4,7 @@
  * time. Scaffolds a *public* changelog entry for the new version if one does
  * not already exist yet, so the /changelog page always has an entry per release.
  *
- * The generated entry ships with sensible bilingual defaults; enrich it by hand
+ * The generated entry ships with sensible trilingual defaults; enrich it by hand
  * (or with Claude) for releases that deserve a nicer, visitor-facing note.
  *
  * Usage: node scripts/new-public-changelog-entry.mjs <version> <type>
@@ -41,11 +41,14 @@ kind: ${kind}
 title:
   fr: "Mise à jour ${version}"
   en: "Update ${version}"
+  nl: "Update ${version}"
 notes:
   fr:
     - "Améliorations et corrections diverses."
   en:
     - "Various improvements and fixes."
+  nl:
+    - "Diverse verbeteringen en correcties."
 ---
 `;
 
