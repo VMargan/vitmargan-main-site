@@ -73,3 +73,28 @@ Vérifier dans **Settings → Actions → General** que *Workflow permissions* e
 ```sh
 npx semantic-release --dry-run --no-ci
 ```
+
+## 7. ⚠️ `conventional-changelog-conventionalcommits` reste en `^9`
+
+Le preset est **volontairement bloqué en `9.x`** dans les `devDependencies`.
+
+À partir de la **v10**, le preset produit ses gabarits sous forme de fonctions
+(via `@conventional-changelog/template`), destinées à `conventional-changelog-writer@9`.
+Or semantic-release 25 embarque encore `conventional-changelog-writer@8`, qui
+attend des gabarits Handlebars sous forme de chaînes. Le writer ignore alors
+silencieusement les gabarits du preset et retombe sur les siens : **aucune
+erreur, mais des notes de release vides** (juste la ligne de titre), dans
+`CHANGELOG.md` comme sur la release GitHub. C'est ce qui est arrivé de la
+v0.0.1 à la v1.2.0.
+
+Donc : ne pas laisser un `npm update` ou un bot de dépendances passer ce paquet
+en `10.x` tant que semantic-release n'embarque pas `conventional-changelog-writer@9`.
+Après toute mise à jour de `semantic-release` ou du preset, vérifier que les
+notes ne sont pas vides :
+
+```sh
+npx semantic-release --dry-run --no-ci
+```
+
+`@commitlint/config-conventional` embarque sa propre copie du preset (en `10.x`),
+sans rapport avec celle-ci : elle ne sert qu'à valider les messages de commit.
