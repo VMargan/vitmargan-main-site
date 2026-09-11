@@ -31,6 +31,13 @@ export interface Mission {
   highlights: string[];
   stack: string[];
 }
+/** Pre-development roles, tucked behind a collapse (not developer work). */
+export interface EarlierRole {
+  client: string;
+  role: string;
+  period: string;
+  summary: string;
+}
 export interface ProjectItem {
   name: string;
   tag: string;
@@ -64,6 +71,7 @@ export interface SiteContent {
   missions: {
     index: string; kicker: string; title: string; intro: string;
     current: string; items: Mission[];
+    earlier: { label: string; items: EarlierRole[] };
   };
   projects: { index: string; kicker: string; title: string; intro: string; items: ProjectItem[]; link: string };
   about: {
@@ -257,7 +265,31 @@ export const content: Record<Lang, SiteContent> = {
           ],
           stack: ['Angular', '.NET', 'WCF', 'SQL Server', 'Oracle'],
         },
+        {
+          client: 'Vision IT Group / onepoint',
+          role: '.NET Developer',
+          period: '2014 — 2015',
+          summary:
+            'Développeur .NET dans une équipe de 7, sur la nouvelle version de l’intranet/extranet de l’IBR-IRE (Institut des Réviseurs d’Entreprises).',
+          highlights: [
+            'Nouvelle version de l’intranet/extranet, preuves de concept et maintenance applicative.',
+            'Front AngularJS et back ASP.NET Web API 2 / WCF, avec Entity Framework.',
+          ],
+          stack: ['AngularJS', 'ASP.NET Web API 2', 'WCF', 'Entity Framework', 'Unity (DI)'],
+        },
       ],
+      earlier: {
+        label: 'Avant ma carrière de développeur',
+        items: [
+          {
+            client: 'St. Jude Medical',
+            role: 'Data Entry, Medical Studies',
+            period: '2012 — 2013',
+            summary:
+              'Encodage de données d’études cliniques sous Oracle Clinical, chez un fabricant de dispositifs médicaux : un premier contact avec les environnements réglementés, avant de basculer vers le développement.',
+          },
+        ],
+      },
     },
     projects: {
       index: '04',
@@ -526,7 +558,31 @@ export const content: Record<Lang, SiteContent> = {
           ],
           stack: ['Angular', '.NET', 'WCF', 'SQL Server', 'Oracle'],
         },
+        {
+          client: 'Vision IT Group / onepoint',
+          role: '.NET Developer',
+          period: '2014 — 2015',
+          summary:
+            '.NET developer in a team of 7, on the new version of the IBR-IRE intranet/extranet (the Belgian Institute of Registered Auditors).',
+          highlights: [
+            'New version of the intranet/extranet, proofs of concept and application maintenance.',
+            'AngularJS front end and ASP.NET Web API 2 / WCF back end, with Entity Framework.',
+          ],
+          stack: ['AngularJS', 'ASP.NET Web API 2', 'WCF', 'Entity Framework', 'Unity (DI)'],
+        },
       ],
+      earlier: {
+        label: 'Before my developer career',
+        items: [
+          {
+            client: 'St. Jude Medical',
+            role: 'Data Entry, Medical Studies',
+            period: '2012 — 2013',
+            summary:
+              'Clinical study data entry in Oracle Clinical, at a medical device manufacturer: a first exposure to regulated environments, before moving into development.',
+          },
+        ],
+      },
     },
     projects: {
       index: '04',
@@ -795,7 +851,31 @@ export const content: Record<Lang, SiteContent> = {
           ],
           stack: ['Angular', '.NET', 'WCF', 'SQL Server', 'Oracle'],
         },
+        {
+          client: 'Vision IT Group / onepoint',
+          role: '.NET Developer',
+          period: '2014 — 2015',
+          summary:
+            '.NET-ontwikkelaar in een team van 7, aan de nieuwe versie van het intranet/extranet van het IBR-IRE (Instituut van de Bedrijfsrevisoren).',
+          highlights: [
+            'Nieuwe versie van het intranet/extranet, proofs of concept en applicatieonderhoud.',
+            'AngularJS-frontend en ASP.NET Web API 2 / WCF-backend, met Entity Framework.',
+          ],
+          stack: ['AngularJS', 'ASP.NET Web API 2', 'WCF', 'Entity Framework', 'Unity (DI)'],
+        },
       ],
+      earlier: {
+        label: 'Vóór mijn carrière als ontwikkelaar',
+        items: [
+          {
+            client: 'St. Jude Medical',
+            role: 'Data Entry, Medical Studies',
+            period: '2012 — 2013',
+            summary:
+              'Data-invoer van klinische studies in Oracle Clinical, bij een fabrikant van medische hulpmiddelen: een eerste kennismaking met gereguleerde omgevingen, vóór de overstap naar ontwikkeling.',
+          },
+        ],
+      },
     },
     projects: {
       index: '04',

@@ -85,5 +85,29 @@ const items = m.items.map((mission) => ({
         ))}
       </ol>
     </div>
+
+    {m.earlier.items.length > 0 && (
+      <details class="group mt-8 md:pl-10">
+        <summary class="inline-flex cursor-pointer list-none items-center gap-2 font-mono text-xs text-muted transition-colors hover:text-accent [&::-webkit-details-marker]:hidden">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="transition-transform duration-300 group-open:rotate-90" aria-hidden="true">
+            <path d="M4 2l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          {m.earlier.label}
+        </summary>
+
+        <ul class="mt-4 space-y-3">
+          {m.earlier.items.map((role) => (
+            <li class="rounded-lg border border-line/60 bg-surface/20 px-6 py-5">
+              <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <h3 class="text-base font-semibold text-fg-dim">{role.client}</h3>
+                <span class="font-mono text-xs text-muted">{role.period}</span>
+              </div>
+              <p class="mt-0.5 text-sm text-muted">{role.role}</p>
+              <p class="mt-3 text-[13px] leading-relaxed text-muted">{role.summary}</p>
+            </li>
+          ))}
+        </ul>
+      </details>
+    )}
   </div>
 </section>
